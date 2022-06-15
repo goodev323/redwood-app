@@ -1,0 +1,44 @@
+# This file contains config for a baremetal deployment
+#
+# SSH connection options include:
+#
+# * host - the remote server hostname/IP
+# * port - defaults to 22
+# * username - required, the user you're connecting as
+# * password - only set if you're not using key-based authentication
+# * privateKey - local file path to a private key that will be sent with the connection request
+# * passphrase - used if your private key has a passphrase
+# * agentForward - set to `true` to forward the client machine's ssh credentials
+#
+# See https://redwoodjs.com/docs/deploy/baremetal for more info
+
+[[servers]]
+host = "gooo.dev"
+username = "root"
+privateKey = "/Users/good/.ssh/private/id_ed25519"
+agentForward = true
+sides = ["api","web"]
+packageManagerCommand = "yarn"
+monitorCommand = "pm2"
+path = "/var/www/gooo.dev/redwood-app"
+processNames = ["serve"]
+repo = "https://github.com/goodev323/redwood-app.git"
+branch = "main"
+# If you have separate api and web servers:
+#
+# [[servers]]
+# host = "api.server.com"
+# user = "user"
+# agentForward = true
+# sides = ["api"]
+# path = "/var/www/app"
+# processNames = ["api"]
+#
+# [[servers]]
+# host = "web.server.com"
+# user = "user"
+# agentForward = true
+# sides = ["web"]
+# path = "/var/www/app"
+# migrate = false # only one server in a cluster needs to migrate
+# processNames = ["web"]
